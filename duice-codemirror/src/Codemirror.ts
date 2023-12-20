@@ -5,20 +5,26 @@ namespace duice.extension {
 
     export class Codemirror extends duice.ObjectElement<HTMLElement> {
 
-        codeMirror: any;
+        mode: string = 'text/x-markdown';
 
-        toolbar: HTMLDivElement;
+        theme: string = 'default';
+
+        codeMirror: any;
 
         constructor(element: HTMLElement, bindData: object, context: object) {
             super(element, bindData, context);
             this.getHtmlElement().style.display = 'block';
 
+            // option
+            this.mode = getElementAttribute(element, 'mode') || this.mode;
+            this.theme = getElementAttribute(element, 'theme') || this.theme;
+
             // config
             let config = {
-                mode: 'markdown',
+                mode: this.mode,
                 inputStyle: 'textarea',
                 lineNumbers: true,
-                theme: "abbott",
+                theme: this.theme,
                 extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
             };
 

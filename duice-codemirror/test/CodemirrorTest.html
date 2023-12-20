@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <script src="../node_modules/duice/dist/duice.js"></script>
-    <link rel="stylesheet" type="text/css" href="../lib/codemirror/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="../lib/codemirror/codemirror.css"/>
     <script src="../lib/codemirror/codemirror.js"></script>
     <script src="../lib/codemirror/mode/markdown/markdown.js"></script>
+    <script src="../lib/codemirror/mode/clike/clike.js"></script>
+    <link rel="stylesheet" type="text/css" href="../lib/codemirror/theme/darcula.css"/>
     <script src="../dist/duice-codemirror.js"></script>
     <script>
         'use strict';
@@ -18,7 +20,12 @@
 </head>
 <body>
 <h1>duice-codemirror test</h1>
-<duice-codemirror data-duice-bind="myObject" data-duice-property="content" style="border: solid 1px black; width:100%; height:800px;"/>
+<duice-codemirror
+        data-duice-bind="myObject"
+        data-duice-property="content"
+        data-duice-mode="text/x-java"
+        data-duice-theme="darcula"
+        style="border: solid 1px black; width:100%; height:800px;"/>
 
 </body>
 </html>

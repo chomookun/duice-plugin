@@ -6,13 +6,18 @@ var duice;
         class Codemirror extends duice.ObjectElement {
             constructor(element, bindData, context) {
                 super(element, bindData, context);
+                this.mode = 'text/x-markdown';
+                this.theme = 'default';
                 this.getHtmlElement().style.display = 'block';
+                // option
+                this.mode = duice.getElementAttribute(element, 'mode') || this.mode;
+                this.theme = duice.getElementAttribute(element, 'theme') || this.theme;
                 // config
                 let config = {
-                    mode: 'markdown',
+                    mode: this.mode,
                     inputStyle: 'textarea',
                     lineNumbers: true,
-                    theme: "default",
+                    theme: this.theme,
                     extraKeys: { "Enter": "newlineAndIndentContinueMarkdownList" }
                 };
                 // textarea
