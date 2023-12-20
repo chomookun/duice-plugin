@@ -18,7 +18,7 @@ namespace duice.extension {
                 mode: 'markdown',
                 inputStyle: 'textarea',
                 lineNumbers: true,
-                theme: "default",
+                theme: "abbott",
                 extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
             };
 

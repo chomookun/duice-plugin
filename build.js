@@ -1,24 +1,20 @@
-// build.js
-
 const { execSync } = require('child_process');
+const fs = require('fs');
 const path = require('path');
-
-// 서브 프로젝트 디렉토리 목록
-const subProjects = ['duice-pagination', 'duice-marked'];
-
-// 루트 프로젝트의 경로
 const rootPath = path.resolve(__dirname);
+const subProjects = fs.readdirSync(__dirname, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory() && !dirent.name.startsWith('.'))
+    .map(dirent => dirent.name);
 
-// 각 서브 프로젝트의 tsc 명령어 실행
+// tsc sub project
 subProjects.forEach(subProject => {
     const subProjectPath = path.join(rootPath, subProject);
-
     console.log(`Building ${subProject}...`);
 
-    // 서브 프로젝트 디렉토리로 이동
+    // cd
     process.chdir(subProjectPath);
 
-    // tsc 명령어 실행
+    // tsc
     try {
         execSync('tsc', { stdio: 'inherit' });
         console.log(`${subProject} build completed.\n`);
@@ -28,8 +24,6 @@ subProjects.forEach(subProject => {
     }
 });
 
-// 루트 디렉토리로 돌아가기
+// move root dir
 process.chdir(rootPath);
-
 console.log('Build process completed for all subprojects.');
-
