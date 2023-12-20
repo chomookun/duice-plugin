@@ -74,9 +74,9 @@
     </script>
 </head>
 <body>
-<h1>Workfow Test</h1>
-<div class="grid grid-template-columns-12 grid-gap-1em padding-1em">
-    <div class="grid-column-6 s-grid-column-12 border-1">
+<h1>duice-jsplumb test</h1>
+<div style="display:grid; grid-template-columns:1fr 1fr;">
+    <div style="grid-column:1fr;">
         <div style="height:300px;">
             <duice-jsplumb data-duice-bind="job"
                             data-duice-element-property="tasks"
@@ -86,12 +86,12 @@
                             data-duice-connector-property="flows"
                             data-duice-connector-source-property="sourceTaskId"
                             data-duice-connector-target-property="targetTaskId">
-                <div class="border-1 padding-1em grid grid-template-columns-12 grid-gap-1px" style="width:300px; background-color:white;">
-                    <label class="grid-column-12">
+                <div style="width:300px; border:solid 1px; background-color:white; padding:1em;">
+                    <label>
                         <span class="font-weight-bold">Task Name</span>
                         <input data-duice-bind="task" data-duice-property="taskName" class="width-100"/>
                     </label>
-                    <label class="grid-column-12">
+                    <label>
                         <span class="font-weight-bold">Task Type</span>
                         <select data-duice-bind="task" data-duice-property="taskType" class="width-100">
                             <option>- select -</option>
@@ -100,7 +100,7 @@
                             <option value="C">C Type</option>
                         </select>
                     </label>
-                    <table class="grid-column-12">
+                    <table>
                         <colgroup>
                             <col/>
                             <col/>
@@ -135,7 +135,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div class="grid-column-12 justify-self-end">
+                    <div>
                         <button type="button"
                                 data-duice-bind="task"
                                 data-duice-execute="this.dataset.index = status.index;"
@@ -147,9 +147,9 @@
             </duice-jsplumb>
         </div>
     </div>
-    <div class="grid-column-6 s-grid-column-12">
+    <div style="grid-column:1fr;">
         <h2>const tasks = new duice.ArrayProxy([]);</h2>
-        <table>
+        <table border="1">
             <thead>
             <tr>
                 <th>taskId</th>
@@ -206,7 +206,7 @@
         </div>
         <hr/>
         <h2>const taskLinks = new duice.ArrayProxy([]);</h2>
-        <table>
+        <table border="1">
             <thead>
             <tr>
                 <th>taskId</th>

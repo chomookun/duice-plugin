@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <script src="../node_modules/duice/dist/duice.js"></script>
     <script src="../lib/marked/marked.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../lib/prism/prism.css">
     <script src="../lib/prism/prism.js"></script>
-    <script src="../node_modules/duice/dist/duice.js"></script>
-    <script src="../dist/duice-extension.js"></script>
+    <script src="../dist/duice-marked.js"></script>
     <script>
         'use strict';
         const myObject = new duice.ObjectProxy({
@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<duice-markdown-viewer data-duice-bind="myObject" data-duice-property="content"/>
+<duice-marked data-duice-bind="myObject" data-duice-property="content"/>
 
 
 </body>

@@ -1,6 +1,6 @@
 {
   "name": "duice-jsplumb",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "DUICE(Data-oriented javascript UI Component Element) Jsplumb",
   "homepage": "http://duice-plugin.oopscraft.org",
   "author": "chomookun@gmail.com",
@@ -11,7 +11,7 @@
   "main": "./dist/duice-jsplumb.js",
   "type": "module",
   "dependencies": {
-    "duice": "^0.1.84",
+    "duice": "latest",
     "jsdom": "^21.1.0",
     "jsplumb": "^2.15.6",
     "ts-node": "^10.9.1",
