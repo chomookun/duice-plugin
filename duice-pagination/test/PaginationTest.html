@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <script src="../node_modules/duice/dist/duice.js"></script>
+    <script src="../dist/duice-pagination.js"></script>
+    <script>
+        'use strict';
+        const pagination = new duice.ObjectProxy({
+            size: 10,
+            page: 0,
+            count: 423
+        });
+
+        function gotoPage(page) {
+            console.log(page);
+            pagination.page = page;
+        }
+    </script>
+</head>
+<body>
+
+<duice-pagination data-duice-bind="pagination"
+        data-duice-size-property="size"
+        data-duice-page-property="page"
+        data-duice-count-property="count"
+        data-duice-onclick="gotoPage(this.dataset.page);"/>
+
+</body>
+</html>

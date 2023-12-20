@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <script src="../lib/marked/marked.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../lib/prism/prism.css">
+    <script src="../lib/prism/prism.js"></script>
+    <script src="../node_modules/duice/dist/duice.js"></script>
+    <script src="../dist/duice-extension.js"></script>
+    <script>
+        'use strict';
+        const myObject = new duice.ObjectProxy({
+            content: "# dddddd\n**fdfdsa**\n\n\n\n\n\n\n\n\n\nds***DSADSDS***ADSA\n*  목록1\n*  목록2\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| John     | Doe      | Male     |\n| Mary     | Smith    | Female   |\n\nOr without aligning the columns...\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| John | Doe | Male |\n| Mary | Smith | Female |\n\n------------------------------------\n\n```java\n\tsuper(div);\n\tthis.div = div;\n\tthis.textarea = document.createElement('textarea');\n\tthis.div.appendChild(this.textarea);\n\t/*\n\tthis.config = config;\n\tif (!this.config) {\n\t\tthis.config = new Object();\n\t}\n\tthis.config.element = this.textarea;\n\tthis.config.tabSize = 4;\n\tthis.config.toolbar = false;\n\t*/\n\tthis.config = {\n\t\telement: this.textarea,\n\t\ttabSize: 4,\n\t\trenderingConfig: {\n\t\t\tsingleLineBreaks: false,\n\t\t\tcodeSyntaxHighlighting: true,\n\t\t},\n\t}\n                \n```"
+        });
+
+    </script>
+</head>
+<body>
+
+<duice-markdown-viewer data-duice-bind="myObject" data-duice-property="content"/>
+
+
+</body>
+</html>
+
+
+
+
+
+

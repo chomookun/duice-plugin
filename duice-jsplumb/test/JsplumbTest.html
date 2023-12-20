@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <script src="../node_modules/jsplumb/dist/js/jsplumb.js"></script>
+    <script src="../node_modules/duice/dist/duice.js"></script>
+    <script src="../dist/duice-jsplumb.js"></script>
+    <style>
+        body {
+            background-color: white;
+        }
+    </style>
+    <script>
+        const job = new duice.ObjectProxy({
+            tasks: [],
+            flows: []
+        });
+
+        function addJobTask() {
+            duice.prompt("TaskId").then(value => {
+                if(value) {
+                    job.tasks.push({
+                        taskId: value,
+                        arguments: []
+                    });
+                }
+            });
+        }
+
+        function removeJobTask(index) {
+            duice.confirm("Delete?").then((result) => {
+                if(result) {
+                    job.tasks.splice(index, 1);
+                }
+            });
+        }
+
+        function addTaskArgument(taskId) {
+            job.tasks.forEach(task => {
+                if(task.taskId === taskId) {
+                    task.arguments.push({
+                        key: null,
+                        value: null
+                    });
+                }
+            });
+        }
+
+        function removeTaskArgument(taskId, index) {
+            job.tasks.forEach(task => {
+                if(task.taskId === taskId) {
+                    task.arguments.splice(index, 1);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let data = {
+                tasks: [
+                    {taskId: 'a', taskName:'task a', taskType:'A', positionX:100, positionY:100, arguments:[{}] },
+                    {taskId: 'b', taskName:'task b', taskType:'B', positionX:450, positionY:100, arguments:[] },
+                    {taskId: 'c', taskName:'task c', taskType:'C', positionX:250, positionY:350, arguments:[] }
+                ],
+                flows: [
+                    {sourceTaskId: 'a', targetTaskId: 'c'},
+                    {sourceTaskId: 'b', targetTaskId: 'c'}
+                ]
+            };
+            duice.ObjectProxy.assign(job, data);
+        });
+
+    </script>
+</head>
+<body>
+<h1>Workfow Test</h1>
+<div class="grid grid-template-columns-12 grid-gap-1em padding-1em">
+    <div class="grid-column-6 s-grid-column-12 border-1">
+        <div style="height:300px;">
+            <duice-jsplumb data-duice-bind="job"
+                            data-duice-element-property="tasks"
+                            data-duice-element-loop="task,status"
+                            data-duice-element-id-property="taskId"
+                            data-duice-element-position-property="positionX,positionY"
+                            data-duice-connector-property="flows"
+                            data-duice-connector-source-property="sourceTaskId"
+                            data-duice-connector-target-property="targetTaskId">
+                <div class="border-1 padding-1em grid grid-template-columns-12 grid-gap-1px" style="width:300px; background-color:white;">
+                    <label class="grid-column-12">
+                        <span class="font-weight-bold">Task Name</span>
+                        <input data-duice-bind="task" data-duice-property="taskName" class="width-100"/>
+                    </label>
+                    <label class="grid-column-12">
+                        <span class="font-weight-bold">Task Type</span>
+                        <select data-duice-bind="task" data-duice-property="taskType" class="width-100">
+                            <option>- select -</option>
+                            <option value="A">A Type</option>
+                            <option value="B">B Type</option>
+                            <option value="C">C Type</option>
+                        </select>
+                    </label>
+                    <table class="grid-column-12">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>
+                                <button type="button"
+                                        data-duice-bind="task"
+                                        data-duice-execute="this.dataset.taskId=task.taskId;"
+                                        onclick="addTaskArgument(this.dataset.taskId);">
+                                    +
+                                </button>
+                            </th>
+                            <th>Key</th>
+                            <th>Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-duice-bind="task.arguments" data-duice-loop="argument,status">
+                            <td>
+                                <button type="button"
+                                        data-duice-bind="argument"
+                                        data-duice-execute="this.dataset.taskId=task.taskId; this.dataset.index=status.index;"
+                                        onclick="removeTaskArgument(this.dataset.taskId,this.dataset.index);">
+                                    -
+                                </button>
+                            </td>
+                            <td><input type="text" data-duice-bind="argument" data-duice-property="key" class="width-100"/></td>
+                            <td><input type="text" data-duice-bind="argument" data-duice-property="value" class="width-100"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="grid-column-12 justify-self-end">
+                        <button type="button"
+                                data-duice-bind="task"
+                                data-duice-execute="this.dataset.index = status.index;"
+                                onclick="removeJobTask(this.dataset.index);">
+                            Remove
+                        </button>
+                    </div>
+                </div>
+            </duice-jsplumb>
+        </div>
+    </div>
+    <div class="grid-column-6 s-grid-column-12">
+        <h2>const tasks = new duice.ArrayProxy([]);</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>taskId</th>
+                <th>taskName</th>
+                <th>taskType</th>
+                <th>positionX</th>
+                <th>positionY</th>
+                <th>arguments</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-duice-bind="job.tasks" data-duice-loop="task,status">
+                <td data-duice-bind="task" data-duice-property="taskId"></td>
+                <td>
+                    <input type="text" data-duice-bind="task" data-duice-property="taskName"/>
+                </td>
+                <td>
+                    <select data-duice-bind="task" data-duice-property="taskType">
+                        <option>- select -</option>
+                        <option value="A">A Type</option>
+                        <option value="B">B Type</option>
+                        <option value="C">C Type</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" data-duice-bind="task" data-duice-property="positionX"/>
+                </td>
+                <td>
+                    <input type="number" data-duice-bind="task" data-duice-property="positionY"/>
+                </td>
+                <td>
+                    <table class="width-100">
+                        <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-duice-bind="task.arguments" data-duice-loop="argument,status">
+                            <td><input type="text" data-duice-bind="argument" data-duice-property="key"/></td>
+                            <td><input type="text" data-duice-bind="argument" data-duice-property="value"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <button type="button" onclick="addJobTask();">
+                + Add
+            </button>
+        </div>
+        <hr/>
+        <h2>const taskLinks = new duice.ArrayProxy([]);</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>taskId</th>
+                <th>targetTaskId</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-duice-bind="job.flows" data-duice-loop="flow,status">
+                <td>
+                    <span data-duice-bind="flow" data-duice-property="sourceTaskId"></span>
+                </td>
+                <td>
+                    <span data-duice-bind="flow" data-duice-property="targetTaskId"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

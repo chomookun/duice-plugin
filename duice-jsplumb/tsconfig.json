@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "sourceRoot": "src",
+    "rootDirs": ["./"],
+    "target": "es6",
+    "outFile": "dist/duice-jsplumb.js",
+    "sourceMap": true,
+    "declaration": true,
+    "noImplicitOverride": true,
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
