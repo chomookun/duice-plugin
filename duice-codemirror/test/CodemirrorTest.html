@@ -16,6 +16,10 @@
         const myObject = new duice.ObjectProxy({
             content: "# dddddd\n**fdfdsa**\n\nds***DSADSDS***ADSA\n*  목록1\n*  목록2\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| John     | Doe      | Male     |\n| Mary     | Smith    | Female   |\n\nOr without aligning the columns...\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| John | Doe | Male |\n| Mary | Smith | Female |\n\n------------------------------------\n\n```java\n\tsuper(div);\n\tthis.div = div;\n\tthis.textarea = document.createElement('textarea');\n\tthis.div.appendChild(this.textarea);\n\t/*\n\tthis.config = config;\n\tif (!this.config) {\n\t\tthis.config = new Object();\n\t}\n\tthis.config.element = this.textarea;\n\tthis.config.tabSize = 4;\n\tthis.config.toolbar = false;\n\t*/\n\tthis.config = {\n\t\telement: this.textarea,\n\t\ttabSize: 4,\n\t\trenderingConfig: {\n\t\t\tsingleLineBreaks: false,\n\t\t\tcodeSyntaxHighlighting: true,\n\t\t},\n\t}\n                \n```"
         });
+        const myArray = new duice.ArrayProxy([
+            { content: "test1"},
+            { content: "test2"}
+        ]);
     </script>
 </head>
 <body>
@@ -25,7 +29,17 @@
         data-duice-property="content"
         data-duice-mode="text/x-java"
         data-duice-theme="darcula"
-        style="border: solid 1px black; width:100%; height:800px;"/>
+        style="border:solid 1px black; width:100%; height:400px;">
+</duice-codemirror>
+
+<div data-duice-bind="myArray" data-duice-loop="element,status" style="margin:1em;">
+    <duice-codemirror
+            data-duice-bind="element"
+            data-duice-property="content"
+            data-duice-mode="text/x-java"
+            data-duice-theme="darcula">
+    </duice-codemirror>
+</div>
 
 </body>
 </html>
