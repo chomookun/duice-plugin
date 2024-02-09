@@ -4,6 +4,9 @@ declare namespace duice.plugin {
         sizeProperty: string;
         countProperty: string;
         onclick: Function;
+        prevContent: string;
+        nextContent: string;
+        pageNumberSize: number;
         constructor(htmlElement: HTMLElement, bindData: object, context: object);
         doRender(object: object): void;
         doUpdate(object: object): void;

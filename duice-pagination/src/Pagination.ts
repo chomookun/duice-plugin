@@ -11,6 +11,12 @@ namespace duice.plugin {
 
         onclick: Function;
 
+        prevContent: string = '<';
+
+        nextContent: string = '>';
+
+        pageNumberSize: number = 10;
+
         constructor(htmlElement: HTMLElement, bindData: object, context: object) {
             super(htmlElement, bindData, context);
 
@@ -19,14 +25,14 @@ namespace duice.plugin {
             this.sizeProperty = getElementAttribute(htmlElement, 'size-property');
             this.countProperty = getElementAttribute(htmlElement, 'count-property');
             this.onclick = new Function(getElementAttribute(htmlElement, 'onclick'));
+
+            // optional
+            this.pageNumberSize = Number(getElementAttribute(htmlElement, 'page-number-size') || this.pageNumberSize);
+            this.prevContent = getElementAttribute(htmlElement, 'prev-content') || this.prevContent;
+            this.nextContent = getElementAttribute(htmlElement, 'next-content') || this.nextContent;
         }
 
         override doRender(object: object): void {
-
-            // optional
-            let prevText = getElementAttribute(this.getHtmlElement(), 'prev-text')||'<︎';
-            let nextText = getElementAttribute(this.getHtmlElement(), 'next-text')||'>︎';
-
             // page,size,count
             let page = Number(object[this.pageProperty]);
             let size = Number(object[this.sizeProperty]);
@@ -34,8 +40,8 @@ namespace duice.plugin {
 
             // calculate page
             let totalPage = Math.ceil(count/size);
-            let startPageIndex = Math.floor(page/10)*10;
-            let endPageIndex = Math.min(startPageIndex + 9, totalPage - 1);
+            let startPageIndex = Math.floor(page/this.pageNumberSize)*this.pageNumberSize;
+            let endPageIndex = Math.min(startPageIndex + (this.pageNumberSize-1), totalPage - 1);
             endPageIndex = Math.max(endPageIndex, 0);
 
             // template
@@ -44,13 +50,13 @@ namespace duice.plugin {
 
             // prev
             let prev = document.createElement('li');
-            prev.appendChild(document.createTextNode(prevText));
+            prev.innerHTML = this.prevContent;
             prev.classList.add(`${getNamespace()}-pagination__item-prev`);
-            prev.dataset.page = String(Math.max(startPageIndex - 10, 0));
+            prev.dataset.page = String(Math.max(startPageIndex - this.pageNumberSize, 0));
             prev.addEventListener('click', () => {
                 this.onclick.call(prev);
             })
-            if(page < 10) {
+            if(page < this.pageNumberSize) {
                 prev.classList.add(`${getNamespace()}-pagination__item--disable`);
             }
             pagination.appendChild(prev);
@@ -72,7 +78,7 @@ namespace duice.plugin {
 
             // next
             let next = document.createElement('li');
-            next.appendChild(document.createTextNode(nextText));
+            next.innerHTML = this.nextContent;
             next.classList.add(`${getNamespace()}-pagination__item-next`);
             next.dataset.page = String(Math.min(endPageIndex + 1, totalPage));
             next.addEventListener('click', () => {

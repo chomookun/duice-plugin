@@ -22,11 +22,39 @@
 </head>
 <body>
 <h1>duice-pagination test</h1>
+<h2>
+    default
+</h2>
 <duice-pagination data-duice-bind="pagination"
         data-duice-size-property="size"
         data-duice-page-property="page"
         data-duice-count-property="count"
-        data-duice-onclick="gotoPage(this.dataset.page);"/>
+        data-duice-onclick="gotoPage(this.dataset.page);">
+</duice-pagination>
+<h2>
+    customize page-number-size
+    <small>(data-duice-page-number-size='1')</small>
+</h2>
+<duice-pagination data-duice-bind="pagination"
+                  data-duice-size-property="size"
+                  data-duice-page-property="page"
+                  data-duice-count-property="count"
+                  data-duice-onclick="gotoPage(this.dataset.page);"
+                  data-duice-page-number-size="1">
+</duice-pagination>
+<h2>
+    customize prev-text, next-text
+    <small>(data-duice-prev-content='Prev' data-duice-next-content='Next')</small>
+</h2>
+<duice-pagination data-duice-bind="pagination"
+                  data-duice-size-property="size"
+                  data-duice-page-property="page"
+                  data-duice-count-property="count"
+                  data-duice-onclick="gotoPage(this.dataset.page);"
+                  data-duice-prev-content="Prev"
+                  data-duice-next-content="<b>Next</b>">
+</duice-pagination>
+
 
 </body>
 </html>
