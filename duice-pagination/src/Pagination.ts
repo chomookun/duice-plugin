@@ -102,6 +102,9 @@ namespace duice.plugin {
         createStyle(): HTMLStyleElement {
             let style = document.createElement('style');
             style.innerHTML = `
+                ${getNamespace()}-pagination {
+                    display: inline-block;
+                }
                 .${getNamespace()}-pagination {
                     list-style: none;
                     display: flex;
