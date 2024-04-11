@@ -63,6 +63,14 @@ namespace duice.extension {
             return value;
         }
 
+        override setReadonly(readonly: boolean): void {
+            this.codeMirror.setOption('readOnly', readonly);
+        }
+
+        override setDisable(disable: boolean): void {
+            this.codeMirror.setOption('readOnly', disable);
+        }
+
     }
 
 }

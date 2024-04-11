@@ -7,6 +7,8 @@ declare namespace duice.extension {
         constructor(element: HTMLElement, bindData: object, context: object);
         setValue(value: any): void;
         getValue(): any;
+        setReadonly(readonly: boolean): void;
+        setDisable(disable: boolean): void;
     }
 }
 declare namespace duice.extension {
