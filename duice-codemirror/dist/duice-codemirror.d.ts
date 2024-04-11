@@ -8,7 +8,6 @@ declare namespace duice.extension {
         setValue(value: any): void;
         getValue(): any;
         setReadonly(readonly: boolean): void;
-        setDisable(disable: boolean): void;
     }
 }
 declare namespace duice.extension {
