@@ -52,7 +52,9 @@ namespace duice.extension {
             if(!value) {
                 value = '';
             }
+            let scrollInfo = this.codeMirror.getScrollInfo();
             this.codeMirror.doc.setValue(value);
+            this.codeMirror.scrollTo(scrollInfo.left, scrollInfo.top);
         }
 
         override getValue(): any {
