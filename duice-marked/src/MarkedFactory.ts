@@ -1,14 +1,16 @@
-namespace duice.plugin {
+import {Configuration, ObjectElementFactory} from "duice";
+import {DataElementRegistry} from "duice";
+import {Marked} from "./Marked";
 
-    export class MarkedFactory extends duice.ObjectElementFactory<HTMLElement> {
+export class MarkedFactory extends ObjectElementFactory<HTMLElement> {
 
-        override createElement(htmlElement: HTMLElement, bindData: object, context: object): Marked {
-            return new Marked(htmlElement, bindData, context);
-        }
-
+    static {
+        // register
+        DataElementRegistry.register(`${Configuration.getNamespace()}-marked`, new MarkedFactory());
     }
 
-    // register
-    DataElementRegistry.register(`${duice.getNamespace()}-marked`, new MarkedFactory());
+    override createElement(htmlElement: HTMLElement, bindData: object, context: object): Marked {
+        return new Marked(htmlElement, bindData, context);
+    }
 
 }
