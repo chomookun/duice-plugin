@@ -1,0 +1,12 @@
+.idea
+.DS_Store
+node_modules
+build
+*.swp
+
+# dist
+dist/*
+!dist/duice-pagination.js
+!dist/duice-pagination.js.map
+!dist/duice-pagination.min.js
+!dist/duice-pagination.min.js.map
