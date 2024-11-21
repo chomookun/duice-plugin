@@ -1,15 +1,15 @@
-namespace duice.extension {
+import {Configuration, DataElementRegistry, ObjectElementFactory} from "duice";
+import {Codemirror} from "./Codemirror";
 
-    export class CodemirrorFactory extends ObjectElementFactory<HTMLElement> {
+export class CodemirrorFactory extends ObjectElementFactory<HTMLElement> {
 
-        override createElement(htmlElement: HTMLElement, bindData: object, context: object): Codemirror {
-            return new Codemirror(htmlElement, bindData, context);
-        }
-
+    static {
+        // register
+        DataElementRegistry.register(`${Configuration.getNamespace()}-codemirror`, new CodemirrorFactory());
     }
 
-    // register
-    DataElementRegistry.register(`${duice.getNamespace()}-codemirror`, new CodemirrorFactory());
+    override createElement(htmlElement: HTMLElement, bindData: object, context: object): Codemirror {
+        return new Codemirror(htmlElement, bindData, context);
+    }
 
 }
-

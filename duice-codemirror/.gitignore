@@ -1,0 +1,12 @@
+.idea
+.DS_Store
+node_modules
+build
+*.swp
+
+# dist
+dist/*
+!dist/duice-codemirror.js
+!dist/duice-codemirror.js.map
+!dist/duice-codemirror.min.js
+!dist/duice-codemirror.min.js.map

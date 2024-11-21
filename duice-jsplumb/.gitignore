@@ -1,0 +1,12 @@
+.idea
+.DS_Store
+node_modules
+build
+*.swp
+
+# dist
+dist/*
+!dist/duice-jsplumb.js
+!dist/duice-jsplumb.js.map
+!dist/duice-jsplumb.min.js
+!dist/duice-jsplumb.min.js.map
