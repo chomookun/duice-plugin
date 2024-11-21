@@ -1,18 +1,17 @@
 {
   "compilerOptions": {
-    "sourceRoot": "src",
-    "rootDirs": ["./"],
+    "rootDir": "./src",
+    "outDir": "./dist",
     "target": "es6",
-    "outFile": "dist/duice-codemirror.js",
-    "sourceMap": true,
+    "module": "es6",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
     "declaration": true,
-    "noImplicitOverride": true,
-    "moduleResolution": "node"
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "sourceRoot": "./src",
+    "moduleResolution": "node",
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "test"]
 }
