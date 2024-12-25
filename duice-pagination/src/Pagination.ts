@@ -113,17 +113,15 @@ export class Pagination extends CustomElement<object> {
             }
             .${Configuration.getNamespace()}-pagination__item-page {
                 cursor: pointer;
-                padding: 0 0.5rem;
+                padding: 0 0.5em;
             }
             .${Configuration.getNamespace()}-pagination__item-prev {
                 cursor: pointer;
-                padding: 0 0.5rem;
-                font-size: smaller;    
+                padding: 0 0.5em;
             }
             .${Configuration.getNamespace()}-pagination__item-next {
                 cursor: pointer;
-                padding: 0 0.5rem;
-                font-size: smaller;
+                padding: 0 0.5em;
             }
             .${Configuration.getNamespace()}-pagination__item--active {
                 font-weight: bold;
