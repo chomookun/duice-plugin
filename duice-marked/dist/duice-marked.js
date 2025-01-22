@@ -1,3 +1,9 @@
+/*!
+ * duice-marked - v0.2.1
+ * git: https://gitbub.com/chomookun/duice-plugin
+ * website: https://duice-plugin.chomookun.org
+ * Released under the LGPL(GNU Lesser General Public License version 3) License
+ */
 var duiceMarked = (function (exports, duice) {
     'use strict';
 

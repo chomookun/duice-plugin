@@ -1,3 +1,9 @@
+/*!
+ * duice-codemirror - v0.2.3
+ * git: https://gitbub.com/chomookun/duice-plugin
+ * website: https://duice-plugin.chomookun.org
+ * Released under the LGPL(GNU Lesser General Public License version 3) License
+ */
 var duiceCodemirror = (function (exports, duice) {
     'use strict';
 

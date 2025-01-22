@@ -1,12 +1,12 @@
 {
   "name": "duice-pagination",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "DUICE(Data-oriented javascript UI Component Element) Pagination",
-  "homepage": "http://duice-plugin.oopscraft.org",
+  "homepage": "http://duice-plugin.chomookun.org",
   "author": "chomookun@gmail.com",
   "license": "LGPL(GNU Lesser General Public License version 3)",
   "bugs": {
-    "url": "https://github.com/oopscraft/duice-plugin/issues"
+    "url": "https://github.com/chomookun/duice-plugin/issues"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

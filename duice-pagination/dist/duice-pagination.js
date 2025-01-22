@@ -1,3 +1,9 @@
+/*!
+ * duice-pagination - v0.2.2
+ * git: https://gitbub.com/chomookun/duice-plugin
+ * website: https://duice-plugin.chomookun.org
+ * Released under the LGPL(GNU Lesser General Public License version 3) License
+ */
 var duicePagination = (function (exports, duice) {
     'use strict';
 
