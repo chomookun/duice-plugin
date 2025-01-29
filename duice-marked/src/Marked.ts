@@ -16,12 +16,19 @@ export class Marked extends ObjectElement<HTMLElement> {
         this.div = document.createElement('div');
         this.getHtmlElement().appendChild(this.div);
 
+        // customizes responsive table
+        const renderer = new marked.Renderer();
+        renderer.table = (header: string, body: string) => {
+            return `<table style="display:inline-block;overflow-x:scroll;max-width:100%;">\n<thead>${header}</thead>\n<tbody>${body}</tbody>\n</table>`;
+        };
+
         // config
         this.config = {
             headerIds: false,
             mangle: false,
             breaks: true,
-            gfm: true
+            gfm: true,
+            renderer: renderer
         }
     }
 
