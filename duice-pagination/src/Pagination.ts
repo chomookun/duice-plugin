@@ -11,9 +11,9 @@ export class Pagination extends CustomElement<object> {
 
     onclick: Function;
 
-    prevContent: string = '<';
+    prevContent: string = '&#9664;';
 
-    nextContent: string = '>';
+    nextContent: string = '&#9654;';
 
     pageNumberSize: number = 10;
 
