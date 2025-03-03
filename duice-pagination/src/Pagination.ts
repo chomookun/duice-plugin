@@ -7,13 +7,13 @@ export class Pagination extends CustomElement<object> {
 
     sizeProperty: string;
 
-    countProperty: string;
+    totalProperty: string;
 
     onclick: Function;
 
-    prevContent: string = '&#9664;';
+    prevContent: string = '<';
 
-    nextContent: string = '&#9654;';
+    nextContent: string = '>';
 
     pageNumberSize: number = 10;
 
@@ -23,7 +23,7 @@ export class Pagination extends CustomElement<object> {
         // attributes
         this.pageProperty = getElementAttribute(htmlElement, 'page-property');
         this.sizeProperty = getElementAttribute(htmlElement, 'size-property');
-        this.countProperty = getElementAttribute(htmlElement, 'count-property');
+        this.totalProperty = getElementAttribute(htmlElement, 'total-property');
         this.onclick = new Function(getElementAttribute(htmlElement, 'onclick'));
 
         // optional
@@ -36,10 +36,10 @@ export class Pagination extends CustomElement<object> {
         // page,size,count
         let page = Number(object[this.pageProperty]);
         let size = Number(object[this.sizeProperty]);
-        let count = Number(object[this.countProperty]);
+        let total = Number(object[this.totalProperty]);
 
         // calculate page
-        let totalPage = Math.ceil(count/size);
+        let totalPage = Math.ceil(total/size);
         let startPageIndex = Math.floor(page/this.pageNumberSize)*this.pageNumberSize;
         let endPageIndex = Math.min(startPageIndex + (this.pageNumberSize-1), totalPage - 1);
         endPageIndex = Math.max(endPageIndex, 0);

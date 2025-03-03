@@ -11,7 +11,7 @@
         const pagination = new duice.ObjectProxy({
             size: 10,
             page: 0,
-            count: 423
+            total: 423
         });
 
         function gotoPage(page) {
@@ -28,7 +28,7 @@
 <duice-pagination data-duice-bind="pagination"
         data-duice-size-property="size"
         data-duice-page-property="page"
-        data-duice-count-property="count"
+        data-duice-total-property="total"
         data-duice-onclick="gotoPage(this.dataset.page);">
 </duice-pagination>
 <h2>
@@ -38,7 +38,7 @@
 <duice-pagination data-duice-bind="pagination"
                   data-duice-size-property="size"
                   data-duice-page-property="page"
-                  data-duice-count-property="count"
+                  data-duice-total-property="total"
                   data-duice-onclick="gotoPage(this.dataset.page);"
                   data-duice-page-number-size="1">
 </duice-pagination>
@@ -49,7 +49,7 @@
 <duice-pagination data-duice-bind="pagination"
                   data-duice-size-property="size"
                   data-duice-page-property="page"
-                  data-duice-count-property="count"
+                  data-duice-total-property="total"
                   data-duice-onclick="gotoPage(this.dataset.page);"
                   data-duice-prev-content="Prev"
                   data-duice-next-content="<b>Next</b>">
