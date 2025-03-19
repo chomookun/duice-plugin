@@ -1,9 +1,12 @@
 import {getElementAttribute, ObjectElement} from "duice";
-import {PropertyChangeEvent} from "../../../duice/dist/event/PropertyChangeEvent";
+import {PropertyChangeEvent} from "duice";
 
 declare var CodeMirror: any;
 
-export class Codemirror extends ObjectElement<HTMLElement> {
+/**
+ * Codemirror Element
+ */
+export class CodemirrorElement extends ObjectElement<HTMLElement> {
 
     mode: string = 'text/x-markdown';
 
@@ -11,14 +14,18 @@ export class Codemirror extends ObjectElement<HTMLElement> {
 
     codeMirror: any;
 
-    constructor(element: HTMLElement, bindData: object, context: object) {
-        super(element, bindData, context);
+    /**
+     * Constructor
+     * @param htmlElement html element
+     * @param bindData bind data
+     * @param context context
+     */
+    constructor(htmlElement: HTMLElement, bindData: object, context: object) {
+        super(htmlElement, bindData, context);
         this.getHtmlElement().style.display = 'block';
-
         // option
-        this.mode = getElementAttribute(element, 'mode') || this.mode;
-        this.theme = getElementAttribute(element, 'theme') || this.theme;
-
+        this.mode = getElementAttribute(htmlElement, 'mode') || this.mode;
+        this.theme = getElementAttribute(htmlElement, 'theme') || this.theme;
         // config
         let config = {
             mode: this.mode,
@@ -27,20 +34,16 @@ export class Codemirror extends ObjectElement<HTMLElement> {
             theme: this.theme,
             extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
         };
-
         // textarea
         let textarea = document.createElement('textarea');
         this.getHtmlElement().appendChild(textarea);
-
         // create code mirror
         this.codeMirror = CodeMirror.fromTextArea(textarea, config);
         this.codeMirror.setSize('100%','100%');
-
         // refresh (not working without setTimeout)
         setTimeout(() => {
             this.codeMirror.refresh();
         },1);
-
         // add change event listener
         this.codeMirror.on("blur",() => {
             let event = new PropertyChangeEvent(this, this.getProperty(), this.getValue(), this.getIndex());
@@ -48,6 +51,10 @@ export class Codemirror extends ObjectElement<HTMLElement> {
         });
     }
 
+    /**
+     * Sets value
+     * @param value property value
+     */
     override setValue(value: any): void {
         if(!value) {
             value = '';
@@ -57,6 +64,9 @@ export class Codemirror extends ObjectElement<HTMLElement> {
         this.codeMirror.scrollTo(scrollInfo.left, scrollInfo.top);
     }
 
+    /**
+     * Gets value
+     */
     override getValue(): any {
         let value = this.codeMirror.doc.getValue();
         if(!value) {
@@ -65,10 +75,12 @@ export class Codemirror extends ObjectElement<HTMLElement> {
         return value;
     }
 
+    /**
+     * Sets readonly
+     * @param readonly readonly or not
+     */
     override setReadonly(readonly: boolean): void {
         this.codeMirror.setOption('readOnly', readonly);
     }
 
 }
-
-

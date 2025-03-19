@@ -17,19 +17,26 @@ export default {
         {
             file: "dist/duice-pagination.js",
             format: "iife",
-            name: "duicePagination",
+            name: "duice.plugin.Pagination",
             sourcemap: true,
             banner: banner,
+            globals: {
+                duice: 'duice'
+            }
         },
         {
             file: "dist/duice-pagination.min.js",
             format: "iife",
-            name: "duicePagination",
+            name: "duice.plugin.Pagination",
             plugins: [terser()],
             sourcemap: true,
             banner: banner,
+            globals: {
+                duice: 'duice'
+            }
         }
     ],
+    external: ['duice'],
     plugins: [
         visualizer({
             filename: "./dist/bundle-analysis.html"

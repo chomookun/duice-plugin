@@ -1,1 +1,2 @@
-export * from "./CodemirrorFactory"
+export * from "./CodemirrorElement"
+export * from "./CodemirrorElementFactory"

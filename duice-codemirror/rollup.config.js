@@ -17,19 +17,26 @@ export default {
         {
             file: "dist/duice-codemirror.js",
             format: "iife",
-            name: "duiceCodemirror",
+            name: "duice.plugin.Codemirror",
             sourcemap: true,
             banner: banner,
+            globals: {
+                duice: 'duice'
+            }
         },
         {
             file: "dist/duice-codemirror.min.js",
             format: "iife",
-            name: "duiceCodemirror",
+            name: "duice.plugin.Codemirror",
             plugins: [terser()],
             sourcemap: true,
             banner: banner,
+            globals: {
+                duice: 'duice'
+            }
         }
     ],
+    external: ['duice'],
     plugins: [
         visualizer({
             filename: "./dist/bundle-analysis.html"

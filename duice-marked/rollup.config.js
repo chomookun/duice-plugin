@@ -17,19 +17,26 @@ export default {
         {
             file: "dist/duice-marked.js",
             format: "iife",
-            name: "duiceMarked",
+            name: "duice.plugin.Marked",
             sourcemap: true,
             banner: banner,
+            globals: {
+                duice: 'duice'
+            }
         },
         {
             file: "dist/duice-marked.min.js",
             format: "iife",
-            name: "duiceMarked",
+            name: "duice.plugin.Marked",
             plugins: [terser()],
             sourcemap: true,
             banner: banner,
+            globals: {
+                duice: 'duice'
+            }
         }
     ],
+    external: ['duice'],
     plugins: [
         visualizer({
             filename: "./dist/bundle-analysis.html"

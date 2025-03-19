@@ -1,1 +1,2 @@
-export * from "./MarkedFactory"
+export * from "./MarkedElement"
+export * from "./MarkedElementFactory"

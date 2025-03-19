@@ -17,19 +17,26 @@ export default {
         {
             file: "dist/duice-jsplumb.js",
             format: "iife",
-            name: "duiceJsplumb",
+            name: "duice.plugin.Jsplumb",
             sourcemap: true,
             banner: banner,
+            globals: {
+                duice: 'duice'
+            }
         },
         {
             file: "dist/duice-jsplumb.min.js",
             format: "iife",
-            name: "duiceJsplumb",
+            name: "duice.plugin.Jsplumb",
             plugins: [terser()],
             sourcemap: true,
             banner: banner,
+            globals: {
+                duice: 'duice'
+            }
         }
     ],
+    external: ['duice'],
     plugins: [
         visualizer({
             filename: "./dist/bundle-analysis.html"

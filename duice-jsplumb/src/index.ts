@@ -1,1 +1,2 @@
-export * from "./JsplumbFactory"
+export * from "./JsplumbElement"
+export * from "./JsplumbElementFactory"

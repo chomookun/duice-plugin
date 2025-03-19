@@ -1,6 +1,6 @@
 {
   "name": "duice-pagination",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "DUICE(Data-oriented javascript UI Component Element) Pagination",
   "homepage": "http://duice-plugin.chomookun.org",
   "author": "chomookun@gmail.com",
@@ -31,7 +31,7 @@
     "undici-types": "^6.21.0"
   },
   "dependencies": {
-    "copyfiles": "^2.4.1",
+    "copyfiles": "latest",
     "duice": "^0.2.14",
     "jsdom": "^21.1.0",
     "ts-node": "^10.9.1",

@@ -8,9 +8,12 @@ import {
     setElementAttribute,
 } from "duice";
 
-declare var jsPlumb;
+declare var jsPlumb: any;
 
-export class Jsplumb extends CustomElement<object> {
+/**
+ * Jsplumb Element
+ */
+export class JsplumbElement extends CustomElement<object> {
 
     elementProperty: string;
 
@@ -42,9 +45,14 @@ export class Jsplumb extends CustomElement<object> {
 
     connectorItems: any[] = [];
 
+    /**
+     * Constructor
+     * @param htmlElement html element
+     * @param bindData bind data
+     * @param context context
+     */
     constructor(htmlElement: HTMLElement, bindData: object, context: object) {
         super(htmlElement, bindData, context);
-
         // parse attribute
         this.elementProperty = getElementAttribute(this.getHtmlElement(), 'element-property');
         this.elementLoop = getElementAttribute(this.getHtmlElement(), 'element-loop');
@@ -56,12 +64,10 @@ export class Jsplumb extends CustomElement<object> {
         this.connectorProperty = getElementAttribute(this.getHtmlElement(), 'connector-property');
         this.connectorSourceProperty = getElementAttribute(this.getHtmlElement(), 'connector-source-property');
         this.connectorTargetProperty = getElementAttribute(this.getHtmlElement(), 'connector-target-property');
-
         // mark initialized (not using after clone as templates)
         this.htmlElementTemplate = this.getHtmlElement().innerHTML;
         markInitialized(htmlElement);
         this.getHtmlElement().innerHTML = '';
-
         this.container = document.createElement('div');
         this.container.classList.add(Configuration.getNamespace() + '-diagram-container');
         this.container.style.position = 'relative';
@@ -77,9 +83,7 @@ export class Jsplumb extends CustomElement<object> {
         this.jsPlumbInstance = jsPlumb.getInstance({
             container: this.container,
         });
-
         this.getHtmlElement().appendChild(this.container);
-
         this.jsPlumbInstance.bind('connection', (event, mouseEvent) => {
             console.debug('== connection:', event, mouseEvent);
             if(!mouseEvent) {
@@ -104,14 +108,12 @@ export class Jsplumb extends CustomElement<object> {
             let connectorTargetId = getElementAttribute(event.connection.target, 'element-id');
             this.addConnectorData(connectorSourceId, connectorTargetId);
         });
-
         this.jsPlumbInstance.bind('connectionMoved', event => {
             console.debug('== connectionMoved:', event);
             let connectorSourceId = getElementAttribute(event.originalSourceEndpoint.element, 'element-id');
             let connectorTargetId = getElementAttribute(event.originalTargetEndpoint.element, 'element-id');
             this.removeConnectorData(connectorSourceId, connectorTargetId);
         });
-
         this.jsPlumbInstance.bind('internal.connectionDetached', event => {
             console.debug('== internal.connectionDetached:', event);
             let connectorSourceId = getElementAttribute(event.connection.source, 'element-id');
@@ -120,6 +122,9 @@ export class Jsplumb extends CustomElement<object> {
         });
     }
 
+    /**
+     * Creates style
+     */
     createStyle(): HTMLStyleElement {
         let style = document.createElement('style');
         style.innerHTML = `
@@ -158,11 +163,14 @@ export class Jsplumb extends CustomElement<object> {
         return style;
     }
 
+    /**
+     * Do render
+     * @param object object
+     */
     override doRender(object: object): void {
         console.debug("doRender:", object);
         this.clearContainer();
         this.jsPlumbInstance.setSuspendDrawing(true);
-
         let elementArray = this.bindData[this.elementProperty];
         let elementLoopArgs = this.elementLoop.split(',');
         let elementItemName = elementLoopArgs[0].trim();
@@ -180,22 +188,27 @@ export class Jsplumb extends CustomElement<object> {
             });
             this.createElementItem(elementObject, context, index);
         }
-
         let connectorArray = this.bindData[this.connectorProperty];
         for(let index = 0; index < connectorArray.length; index ++) {
             this.createConnectorItem(connectorArray[index]);
         }
-
         this.jsPlumbInstance.setSuspendDrawing(false, true);
         this.fitContainerToContent();
 
     }
 
+    /**
+     * Do update
+     * @param object object
+     */
     override doUpdate(object: object): void {
         console.debug("doUpdate:", object);
         this.doRender(object);
     }
 
+    /**
+     * Clears container
+     */
     clearContainer() : void {
         this.container.innerHTML = '';
         this.elementItems.clear();
@@ -204,6 +217,9 @@ export class Jsplumb extends CustomElement<object> {
         this.connectorItems.length = 0;
     }
 
+    /**
+     * Fits container to content
+     */
     fitContainerToContent(): void {
         let maxWidth = 0;
         let maxHeight = 0;
@@ -233,6 +249,12 @@ export class Jsplumb extends CustomElement<object> {
         }
     }
 
+    /**
+     * Creates element item
+     * @param elementObject element object
+     * @param context context
+     * @param index index
+     */
     createElementItem(elementObject: object, context: object, index: number): void {
         console.debug("createElementItem", elementObject, context, index);
         let elementId = elementObject[this.elementIdProperty];
@@ -241,7 +263,6 @@ export class Jsplumb extends CustomElement<object> {
         Initializer.initialize(elementItem, context, index);
         setElementAttribute(elementItem,'element-id', elementId);
         elementItem.classList.add(Configuration.getNamespace() + '-diagram-element');
-
         elementItem.style.position = 'absolute';
         elementItem.style.left = (elementObject[this.elementPositionXProperty]||10) + 'px';
         elementItem.style.top = (elementObject[this.elementPositionYProperty]||10) + 'px';
@@ -258,7 +279,7 @@ export class Jsplumb extends CustomElement<object> {
                 }
             });
         }
-
+        // source end point
         let sourceEndpoint = this.jsPlumbInstance.addEndpoint(elementItem, {
             isSource: this.isEditable(),
             isTarget: false,
@@ -269,7 +290,7 @@ export class Jsplumb extends CustomElement<object> {
             connector: 'Straight',
         });
         this.sourceEndpoints.set(elementId, sourceEndpoint);
-
+        // target end point
         let targetEndpoint = this.jsPlumbInstance.addEndpoint(elementItem, {
             isTarget: this.isEditable(),
             isSource: false,
@@ -281,6 +302,10 @@ export class Jsplumb extends CustomElement<object> {
         this.targetEndpoints.set(elementId, targetEndpoint);
     }
 
+    /**
+     * Creates connector item
+     * @param connectorObject connector object
+     */
     createConnectorItem(connectorObject: object): void {
         let connectorSourceId = connectorObject[this.connectorSourceProperty];
         let connectorTargetId = connectorObject[this.connectorTargetProperty];
@@ -312,6 +337,11 @@ export class Jsplumb extends CustomElement<object> {
         this.connectorItems.push(connectorItem);
     }
 
+    /**
+     * Adds connector data
+     * @param connectorSourceId connector source id
+     * @param connectorTargetId connector target id
+     */
     addConnectorData(connectorSourceId: string, connectorTargetId: string): void {
         console.debug("addConnectorData", connectorSourceId, connectorTargetId);
         let connectorArray = this.bindData[this.connectorProperty];
@@ -327,6 +357,11 @@ export class Jsplumb extends CustomElement<object> {
         }
     }
 
+    /**
+     * Removes connector data
+     * @param connectorSourceId connector source id
+     * @param connectorTargetId connector target id
+     */
     removeConnectorData(connectorSourceId: string, connectorTargetId: string): void {
         console.debug("removeConnectorData", connectorSourceId, connectorTargetId);
         let linkArray = this.bindData[this.connectorProperty];
@@ -340,6 +375,9 @@ export class Jsplumb extends CustomElement<object> {
         }
     }
 
+    /**
+     * Returns if editable
+     */
     isEditable(): boolean {
         return !ObjectProxy.isReadonlyAll(this.bindData)
             && !ObjectProxy.isDisableAll(this.bindData);

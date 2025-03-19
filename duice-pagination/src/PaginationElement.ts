@@ -1,7 +1,10 @@
 import {Configuration, CustomElement} from "duice";
 import {getElementAttribute} from "duice";
 
-export class Pagination extends CustomElement<object> {
+/**
+ * Pagination Element
+ */
+export class PaginationElement extends CustomElement<object> {
 
     pageProperty: string;
 
@@ -17,37 +20,42 @@ export class Pagination extends CustomElement<object> {
 
     pageNumberSize: number = 10;
 
+    /**
+     * Constructor
+     * @param htmlElement html element
+     * @param bindData bind data
+     * @param context context
+     */
     constructor(htmlElement: HTMLElement, bindData: object, context: object) {
         super(htmlElement, bindData, context);
-
         // attributes
         this.pageProperty = getElementAttribute(htmlElement, 'page-property');
         this.sizeProperty = getElementAttribute(htmlElement, 'size-property');
         this.totalProperty = getElementAttribute(htmlElement, 'total-property');
         this.onclick = new Function(getElementAttribute(htmlElement, 'onclick'));
-
         // optional
         this.pageNumberSize = Number(getElementAttribute(htmlElement, 'page-number-size') || this.pageNumberSize);
         this.prevContent = getElementAttribute(htmlElement, 'prev-content') || this.prevContent;
         this.nextContent = getElementAttribute(htmlElement, 'next-content') || this.nextContent;
     }
 
+    /**
+     * Do render
+     * @param object
+     */
     override doRender(object: object): void {
         // page,size,count
         let page = Number(object[this.pageProperty]);
         let size = Number(object[this.sizeProperty]);
         let total = Number(object[this.totalProperty]);
-
         // calculate page
         let totalPage = Math.ceil(total/size);
         let startPageIndex = Math.floor(page/this.pageNumberSize)*this.pageNumberSize;
         let endPageIndex = Math.min(startPageIndex + (this.pageNumberSize-1), totalPage - 1);
         endPageIndex = Math.max(endPageIndex, 0);
-
         // template
         let pagination = document.createElement('ul');
         pagination.classList.add(`${Configuration.getNamespace()}-pagination`);
-
         // prev
         let prev = document.createElement('li');
         prev.innerHTML = this.prevContent;
@@ -60,7 +68,6 @@ export class Pagination extends CustomElement<object> {
             prev.classList.add(`${Configuration.getNamespace()}-pagination__item--disable`);
         }
         pagination.appendChild(prev);
-
         // pages
         for(let index = startPageIndex; index <= endPageIndex; index ++) {
             let item = document.createElement('li');
@@ -75,7 +82,6 @@ export class Pagination extends CustomElement<object> {
             });
             pagination.appendChild(item);
         }
-
         // next
         let next = document.createElement('li');
         next.innerHTML = this.nextContent;
@@ -88,17 +94,23 @@ export class Pagination extends CustomElement<object> {
             next.classList.add(`${Configuration.getNamespace()}-pagination__item--disable`);
         }
         pagination.appendChild(next);
-
         // returns
         this.getHtmlElement().innerHTML = '';
         this.getHtmlElement().appendChild(this.createStyle());
         this.getHtmlElement().appendChild(pagination);
     }
 
+    /**
+     * Updates element
+     * @param object
+     */
     override doUpdate(object: object): void {
         this.render();
     }
 
+    /**
+     * Creates style
+     */
     createStyle(): HTMLStyleElement {
         let style = document.createElement('style');
         style.innerHTML = `
