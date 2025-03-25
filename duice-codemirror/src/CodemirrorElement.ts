@@ -1,5 +1,5 @@
 import {getElementAttribute, ObjectElement} from "duice";
-import {PropertyChangeEvent} from "duice";
+import {PropertyChangingEvent} from "duice";
 
 declare var CodeMirror: any;
 
@@ -46,7 +46,9 @@ export class CodemirrorElement extends ObjectElement<HTMLElement> {
         },1);
         // add change event listener
         this.codeMirror.on("blur",() => {
-            let event = new PropertyChangeEvent(this, this.getProperty(), this.getValue(), this.getIndex());
+            let element = this.getHtmlElement();
+            let data = this.getBindData();
+            let event = new PropertyChangingEvent(element, data, this.getProperty(), this.getValue(), this.getIndex());
             this.notifyObservers(event);
         });
     }
