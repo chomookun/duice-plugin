@@ -17,7 +17,7 @@ export class JsplumbElement extends CustomElement<object> {
 
     elementProperty: string;
 
-    elementLoop: string;
+    elementForeach: string;
 
     elementIdProperty: string;
 
@@ -55,7 +55,7 @@ export class JsplumbElement extends CustomElement<object> {
         super(htmlElement, bindData, context);
         // parse attribute
         this.elementProperty = getElementAttribute(this.getHtmlElement(), 'element-property');
-        this.elementLoop = getElementAttribute(this.getHtmlElement(), 'element-loop');
+        this.elementForeach = getElementAttribute(this.getHtmlElement(), 'element-foreach');
         this.elementIdProperty = getElementAttribute(this.getHtmlElement(), 'element-id-property');
         let positionProperty = getElementAttribute(this.getHtmlElement(), 'element-position-property');
         let positionPropertyParts = positionProperty.split(',');
@@ -172,7 +172,7 @@ export class JsplumbElement extends CustomElement<object> {
         this.clearContainer();
         this.jsPlumbInstance.setSuspendDrawing(true);
         let elementArray = this.bindData[this.elementProperty];
-        let elementLoopArgs = this.elementLoop.split(',');
+        let elementLoopArgs = this.elementForeach.split(',');
         let elementItemName = elementLoopArgs[0].trim();
         let elementStatusName = elementLoopArgs[1]?.trim();
         for(let index = 0; index < elementArray.length; index ++) {
@@ -380,7 +380,7 @@ export class JsplumbElement extends CustomElement<object> {
      */
     isEditable(): boolean {
         return !ObjectProxy.isReadonlyAll(this.bindData)
-            && !ObjectProxy.isDisableAll(this.bindData);
+            && !ObjectProxy.isDisabledAll(this.bindData);
     }
 
 }

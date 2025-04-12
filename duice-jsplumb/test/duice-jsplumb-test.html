@@ -80,7 +80,7 @@
         <div style="height:300px;">
             <duice-jsplumb data-duice-bind="job"
                             data-duice-element-property="tasks"
-                            data-duice-element-loop="task,status"
+                            data-duice-element-foreach="task,status"
                             data-duice-element-id-property="taskId"
                             data-duice-element-position-property="positionX,positionY"
                             data-duice-connector-property="flows"
@@ -121,7 +121,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr data-duice-bind="task.arguments" data-duice-loop="argument,status">
+                        <tr data-duice-bind="task.arguments" data-duice-foreach="argument,status">
                             <td>
                                 <button type="button"
                                         data-duice-bind="argument"
@@ -161,7 +161,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-duice-bind="job.tasks" data-duice-loop="task,status">
+            <tr data-duice-bind="job.tasks" data-duice-foreach="task,status">
                 <td data-duice-bind="task" data-duice-property="taskId"></td>
                 <td>
                     <input type="text" data-duice-bind="task" data-duice-property="taskName"/>
@@ -189,7 +189,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr data-duice-bind="task.arguments" data-duice-loop="argument,status">
+                        <tr data-duice-bind="task.arguments" data-duice-foreach="argument,status">
                             <td><input type="text" data-duice-bind="argument" data-duice-property="key"/></td>
                             <td><input type="text" data-duice-bind="argument" data-duice-property="value"/></td>
                         </tr>
@@ -214,7 +214,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-duice-bind="job.flows" data-duice-loop="flow,status">
+            <tr data-duice-bind="job.flows" data-duice-foreach="flow,status">
                 <td>
                     <span data-duice-bind="flow" data-duice-property="sourceTaskId"></span>
                 </td>
