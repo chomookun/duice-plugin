@@ -24,6 +24,8 @@ export class FilesElement extends CustomElement<object> {
 
     addContent: string = '[+]';
 
+    emptyContent: string = 'No files';
+
     /**
      * Constructor
      * @param htmlElement html element
@@ -67,6 +69,14 @@ export class FilesElement extends CustomElement<object> {
             this.getHtmlElement().appendChild(itemElement);
         });
 
+        // item empty
+        if (arrayProxy.length === 0) {
+            let emptyElement = document.createElement('div');
+            emptyElement.innerHTML = `${this.emptyContent}`;
+            emptyElement.classList.add(`${Configuration.getNamespace()}-files__empty`);
+            this.getHtmlElement().appendChild(emptyElement);
+        }
+
         // add button
         if (this.files) {
             let addButton= document.createElement('span');
@@ -100,6 +110,7 @@ export class FilesElement extends CustomElement<object> {
         // on click listener
         if (this.onClick) {
             filenameElement.style.cursor = 'pointer';
+            filenameElement.classList.add(`${Configuration.getNamespace()}-files__item-filename--on-click`);
             filenameElement.addEventListener('click', () => {
                 console.log(this.onClick);
                 callFunction(this.onClick, filenameElement, item);
@@ -227,6 +238,9 @@ export class FilesElement extends CustomElement<object> {
             }
             .${Configuration.getNamespace()}-files__item-filename {
             }
+            .${Configuration.getNamespace()}-files__item-filename--on-click:hover {
+                text-decoration: underline;
+            }
             .${Configuration.getNamespace()}-files__item-size {
             }
             .${Configuration.getNamespace()}-files__item-remove {
@@ -234,6 +248,8 @@ export class FilesElement extends CustomElement<object> {
             } 
             .${Configuration.getNamespace()}-files__item-add {
                 cursor: pointer;
+            }
+            .${Configuration.getNamespace()}-files__empty {
             }
         `;
         return style;

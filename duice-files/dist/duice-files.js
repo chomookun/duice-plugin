@@ -1,5 +1,5 @@
 /*!
- * duice-files - v0.3.0
+ * duice-files - v0.3.2
  * git: https://gitbub.com/chomookun/duice-plugin
  * website: https://duice-plugin.chomookun.org
  * Released under the LGPL(GNU Lesser General Public License version 3) License
@@ -33,6 +33,7 @@ this.duice.plugin.Files = (function (exports, duice) {
             this.iconContent = '<svg style="display:block;" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="1rem" height="1rem"><path d="M 7 2 L 7 48 L 43 48 L 43 14.59375 L 42.71875 14.28125 L 30.71875 2.28125 L 30.40625 2 Z M 9 4 L 29 4 L 29 16 L 41 16 L 41 46 L 9 46 Z M 31 5.4375 L 39.5625 14 L 31 14 Z"/></svg>';
             this.removeContent = '[-]';
             this.addContent = '[+]';
+            this.emptyContent = 'No files';
             // attributes
             this.filenameProperty = duice.getElementAttribute(htmlElement, 'filename-property');
             this.sizeProperty = duice.getElementAttribute(htmlElement, 'size-property');
@@ -63,6 +64,13 @@ this.duice.plugin.Files = (function (exports, duice) {
                 let itemElement = this.createItemElement(file, index);
                 this.getHtmlElement().appendChild(itemElement);
             });
+            // item empty
+            if (arrayProxy.length === 0) {
+                let emptyElement = document.createElement('div');
+                emptyElement.innerHTML = `${this.emptyContent}`;
+                emptyElement.classList.add(`${duice.Configuration.getNamespace()}-files__empty`);
+                this.getHtmlElement().appendChild(emptyElement);
+            }
             // add button
             if (this.files) {
                 let addButton = document.createElement('span');
@@ -92,6 +100,7 @@ this.duice.plugin.Files = (function (exports, duice) {
             // on click listener
             if (this.onClick) {
                 filenameElement.style.cursor = 'pointer';
+                filenameElement.classList.add(`${duice.Configuration.getNamespace()}-files__item-filename--on-click`);
                 filenameElement.addEventListener('click', () => {
                     console.log(this.onClick);
                     duice.callFunction(this.onClick, filenameElement, item);
@@ -218,6 +227,9 @@ this.duice.plugin.Files = (function (exports, duice) {
             }
             .${duice.Configuration.getNamespace()}-files__item-filename {
             }
+            .${duice.Configuration.getNamespace()}-files__item-filename--on-click:hover {
+                text-decoration: underline;
+            }
             .${duice.Configuration.getNamespace()}-files__item-size {
             }
             .${duice.Configuration.getNamespace()}-files__item-remove {
@@ -225,6 +237,8 @@ this.duice.plugin.Files = (function (exports, duice) {
             } 
             .${duice.Configuration.getNamespace()}-files__item-add {
                 cursor: pointer;
+            }
+            .${duice.Configuration.getNamespace()}-files__empty {
             }
         `;
             return style;
