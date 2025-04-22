@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <script src="https://unpkg.com/duice/dist/duice.js"></script>
+    <script src="../dist/duice-files.js"></script>
+    <script>
+        'use strict';
+        const files = new duice.ArrayProxy([
+            {filename: 'test1.txt', size: 1234},
+            {filename: 'test2.txt', size: 5678},
+            {filename: 'test3.txt', size: 91011}
+        ]);
+        const fileObjects = [];
+
+        async function downloadFile(file) {
+            console.log(file);
+            if (await new duice.ConfirmDialog('Do you want to download?').open()) {
+                alert(`download: ${JSON.stringify(file)}`);
+            }
+        }
+
+        async function uploadFiles(fileObjects) {
+            console.log(fileObjects);
+            if (!await new duice.ConfirmDialog('Upload file?').open()) {
+                return false;
+            }
+            console.log(`uploadFile:${JSON.stringify(fileObjects)}`);
+            return fileObjects;
+        }
+
+        async function deleteFile(file) {
+            console.log(file);
+            if (!await new duice.ConfirmDialog('Delete file?').open()) {
+                return false;
+            }
+            await new duice.AlertDialog(`deleteFile:${JSON.stringify(file)}`).open();
+        }
+
+    </script>
+</head>
+<body>
+<h1>duice-file test</h1>
+<section>
+    <h2>
+        Default
+    </h2>
+    <duice-files
+            data-duice-bind="files"
+            data-duice-filename-property="filename"
+            data-duice-size-property="size"
+            data-duice-on-click="downloadFile"
+            class="box">
+    </duice-files>
+</section>
+
+<section>
+    <h2>
+        Editable
+    </h2>
+    <duice-files
+            data-duice-bind="files"
+            data-duice-filename-property="filename"
+            data-duice-size-property="size"
+            data-duice-on-click="downloadFile"
+            data-duice-files="fileObjects"
+            class="box">
+    </duice-files>
+</section>
+
+<section>
+    <h2>
+        Editable with direct upload, remove file
+    </h2>
+    <duice-files
+            data-duice-bind="files"
+            data-duice-filename-property="filename"
+            data-duice-size-property="size"
+            data-duice-on-click="downloadFile"
+            data-duice-files="fileObjects"
+            data-duice-on-add="uploadFiles"
+            data-duice-on-remove="deleteFile"
+            class="box">
+    </duice-files>
+</section>
+
+<section>
+    <h2>
+        Customizes style
+    </h2>
+    <duice-files
+            data-duice-bind="files"
+            data-duice-filename-property="filename"
+            data-duice-size-property="size"
+            data-duice-on-click="downloadFile"
+            data-duice-files="fileObjects"
+            data-duice-on-add="uploadFiles"
+            data-duice-on-remove="deleteFile"
+            data-duice-icon-content="#"
+            data-duice-add-content="[Add]"
+            data-duice-remove-content="[Remove]"
+            class="box">
+    </duice-files>
+</section>
+
+</body>
+</html>

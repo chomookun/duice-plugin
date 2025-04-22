@@ -1,0 +1,12 @@
+.idea
+.DS_Store
+node_modules
+build
+*.swp
+
+# dist
+dist/*
+!dist/duice-file.js
+!dist/duice-file.js.map
+!dist/duice-file.min.js
+!dist/duice-file.min.js.map
