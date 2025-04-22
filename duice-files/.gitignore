@@ -6,7 +6,7 @@ build
 
 # dist
 dist/*
-!dist/duice-file.js
-!dist/duice-file.js.map
-!dist/duice-file.min.js
-!dist/duice-file.min.js.map
+!dist/duice-files.js
+!dist/duice-files.js.map
+!dist/duice-files.min.js
+!dist/duice-files.min.js.map
