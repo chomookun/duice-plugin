@@ -235,6 +235,7 @@ export class FilesElement extends CustomElement<object> {
             }
             .${Configuration.getNamespace()}-files__item-icon {
                 height: 1em;
+                filter: invert(0.5);
             }
             .${Configuration.getNamespace()}-files__item-filename {
             }

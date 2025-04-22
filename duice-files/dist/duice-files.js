@@ -1,5 +1,5 @@
 /*!
- * duice-files - v0.3.2
+ * duice-files - v0.3.3
  * git: https://gitbub.com/chomookun/duice-plugin
  * website: https://duice-plugin.chomookun.org
  * Released under the LGPL(GNU Lesser General Public License version 3) License
@@ -224,6 +224,7 @@ this.duice.plugin.Files = (function (exports, duice) {
             }
             .${duice.Configuration.getNamespace()}-files__item-icon {
                 height: 1em;
+                filter: invert(0.5);
             }
             .${duice.Configuration.getNamespace()}-files__item-filename {
             }
