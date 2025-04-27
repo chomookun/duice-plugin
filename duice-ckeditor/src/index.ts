@@ -1,2 +1,2 @@
-export * from "./TinymceElement"
-export * from "./TinymceElementFactory"
+export * from "./CkeditorElement"
+export * from "./CkeditorElementFactory"

@@ -28,7 +28,14 @@
                 return false;
             }
             console.log(`uploadFile:${JSON.stringify(fileObjects)}`);
-            return fileObjects;
+            let items = [];
+            for (const file of fileObjects) {
+                items.push({
+                    filename: file.name,
+                    size: file.size
+                });
+            }
+            return items;
         }
 
         async function deleteFile(file) {

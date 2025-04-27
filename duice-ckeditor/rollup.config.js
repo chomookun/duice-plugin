@@ -15,9 +15,9 @@ export default {
     input: "dist/index.js",
     output: [
         {
-            file: "dist/duice-tinymce.js",
+            file: "dist/duice-ckeditor.js",
             format: "iife",
-            name: "duice.plugin.Tinymce",
+            name: "duice.plugin.Ckeditor",
             sourcemap: true,
             banner: banner,
             globals: {
@@ -25,9 +25,9 @@ export default {
             }
         },
         {
-            file: "dist/duice-tinymce.min.js",
+            file: "dist/duice-ckeditor.min.js",
             format: "iife",
-            name: "duice.plugin.Tinymce",
+            name: "duice.plugin.Ckeditor",
             plugins: [terser()],
             sourcemap: true,
             banner: banner,

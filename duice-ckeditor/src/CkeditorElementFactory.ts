@@ -1,5 +1,5 @@
 import {Configuration, ElementRegistry, ObjectElementFactory} from "duice";
-import {TinymceElement} from "./TinymceElement";
+import {CkeditorElement} from "./CkeditorElement";
 
 /**
  * Ckeditor Factory
@@ -11,7 +11,7 @@ export class CkeditorElementFactory extends ObjectElementFactory<HTMLElement> {
      */
     static {
         // register
-        ElementRegistry.register(`${Configuration.getNamespace()}-tinymce`, new CkeditorElementFactory());
+        ElementRegistry.register(`${Configuration.getNamespace()}-ckeditor`, new CkeditorElementFactory());
     }
 
     /**
@@ -20,7 +20,7 @@ export class CkeditorElementFactory extends ObjectElementFactory<HTMLElement> {
      * @param bindData bind data
      * @param context context
      */
-    override createElement(htmlElement: HTMLElement, bindData: object, context: object): TinymceElement {
+    override createElement(htmlElement: HTMLElement, bindData: object, context: object): CkeditorElement {
         return new CkeditorElement(htmlElement, bindData, context);
     }
 

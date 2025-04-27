@@ -160,22 +160,30 @@ export class FilesElement extends CustomElement<object> {
         input.setAttribute('multiple', 'true');
         input.addEventListener('change', async function () {
             let files = Array.from(this[`files`]);
+            let items = [];
             if (_this.onAdd) {
                 let result = await _this.callOnAddListener(files);
                 if (!result) {
                     return false;
                 } else {
-                    files = result;
+                    items.push(...result);
+                }
+            } else {
+                for (const file of files) {
+                    let item = {
+                        [_this.filenameProperty]: file.name,
+                        [_this.sizeProperty]: file.size
+                    };
+                    items.push(item);
                 }
             }
-            for (const file of files) {
-                let item = {
-                    [_this.filenameProperty]: file.name,
-                    [_this.sizeProperty]: file.size
-                };
+            // set file into item for deletion detection
+            for (let i = 0; i < items.length; i ++) {
+                let item = items[i];
+                let file = files[i];
                 globalThis.Object.defineProperty(item, '_file_', { value: file, writable: true });
                 (_this.getBindData() as Array<object>).push(item);
-                _this.files.push(file);
+                _this.files.push(files[i]);
             }
         });
         input.click();

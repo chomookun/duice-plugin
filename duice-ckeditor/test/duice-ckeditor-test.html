@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <script src="https://unpkg.com/duice/dist/duice.js"></script>
-    <script src="../lib/tinymce/tinymce.min.js"></script>
-    <script src="../dist/duice-tinymce.js"></script>
+    <script src="../lib/ckeditor/ckeditor.js"></script>
+    <script src="../dist/duice-ckeditor.js"></script>
     <script>
         'use strict';
         const myObject = new duice.ObjectProxy({
             content: '<h1>title</h1><hr/>'
         });
+
     </script>
 </head>
 <body>
@@ -20,10 +21,10 @@
     <h2>
         Default
     </h2>
-    <duice-tinymce
+    <duice-ckeditor
             data-duice-bind="myObject"
             data-duice-property="content">
-    </duice-tinymce>
+    </duice-ckeditor>
 </section>
 
 </body>

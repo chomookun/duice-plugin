@@ -1,7 +1,7 @@
 {
-  "name": "duice-tinymce",
+  "name": "duice-ckeditor",
   "version": "0.3.0",
-  "description": "DUICE(Data-oriented javascript UI Component Element) TinyMCE",
+  "description": "DUICE(Data-oriented javascript UI Component Element) CKEditor",
   "homepage": "http://duice-plugin.chomookun.org",
   "author": "chomookun@gmail.com",
   "license": "LGPL(GNU Lesser General Public License version 3)",
@@ -31,6 +31,7 @@
     "undici-types": "^6.21.0"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^41.4.2",
     "duice": "latest",
     "jsdom": "^21.1.0",
     "ts-node": "^10.9.1",
