@@ -1,0 +1,12 @@
+.idea
+.DS_Store
+node_modules
+build
+*.swp
+
+# dist
+dist/*
+!dist/duice-tinymce.js
+!dist/duice-tinymce.js.map
+!dist/duice-tinymce.min.js
+!dist/duice-tinymce.min.js.map
