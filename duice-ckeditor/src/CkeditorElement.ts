@@ -20,10 +20,12 @@ export class CkeditorElement extends ObjectElement<HTMLElement> {
      */
     constructor(htmlElement: HTMLElement, bindData: object, context: object) {
         super(htmlElement, bindData, context);
-        htmlElement.style.display = 'block';
+        this.getHtmlElement().appendChild(this.createStyle());
 
         // textarea
         const textarea = document.createElement('textarea');
+        // textarea.style.height = this.getHtmlElement().style.height;
+        console.error("===========", this.getHtmlElement().style.height);
         htmlElement.appendChild(textarea);
 
         // CKEditor initialization
@@ -56,6 +58,27 @@ export class CkeditorElement extends ObjectElement<HTMLElement> {
             .catch((error: any) => {
                 console.error('Error initializing CKEditor:', error);
             });
+    }
+
+    /**
+     * Creates style
+     */
+    createStyle(): HTMLStyleElement {
+        let style = document.createElement('style');
+        style.innerHTML = `
+            .ck-editor {
+                display: flex;
+                flex-direction: column;
+                height: 100% !important;
+            }
+            .ck-editor__main {
+                flex: 1;
+            }
+            .ck-editor__editable_inline:not(.ck-comment__input *) {
+                height: 100%;
+            }
+        `;
+        return style;
     }
 
     /**

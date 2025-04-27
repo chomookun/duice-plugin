@@ -1,5 +1,5 @@
 /*!
- * duice-ckeditor - v0.3.0
+ * duice-ckeditor - v0.3.1
  * git: https://gitbub.com/chomookun/duice-plugin
  * website: https://duice-plugin.chomookun.org
  * Released under the LGPL(GNU Lesser General Public License version 3) License
@@ -32,9 +32,11 @@ this.duice.plugin.Ckeditor = (function (exports, duice) {
             super(htmlElement, bindData, context);
             this.editor = null; // CKEditor 인스턴스
             this.internalValue = null; // 초기 setValue 저장
-            htmlElement.style.display = 'block';
+            this.getHtmlElement().appendChild(this.createStyle());
             // textarea
             const textarea = document.createElement('textarea');
+            // textarea.style.height = this.getHtmlElement().style.height;
+            console.error("===========", this.getHtmlElement().style.height);
             htmlElement.appendChild(textarea);
             ClassicEditor
                 .create(textarea, {
@@ -64,6 +66,26 @@ this.duice.plugin.Ckeditor = (function (exports, duice) {
                 .catch((error) => {
                 console.error('Error initializing CKEditor:', error);
             });
+        }
+        /**
+         * Creates style
+         */
+        createStyle() {
+            let style = document.createElement('style');
+            style.innerHTML = `
+            .ck-editor {
+                display: flex;
+                flex-direction: column;
+                height: 100% !important;
+            }
+            .ck-editor__main {
+                flex: 1;
+            }
+            .ck-editor__editable_inline:not(.ck-comment__input *) {
+                height: 100%;
+            }
+        `;
+            return style;
         }
         /**
          * Notifies property changed
